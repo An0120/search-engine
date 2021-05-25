@@ -7,3 +7,7 @@ std::string Page::geteffurl(){
 std::string Page::getdata(){
     return data;
 }
+
+long  Page::getstatus(){
+    return status;
+}

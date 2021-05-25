@@ -16,10 +16,7 @@ public:
 
 	std::string getdata();
 
-	[[nodiscard]] inline long getStatus() const
-	{
-		return this->status;
-	}
+	long getstatus();
 };
 
 #endif //CRAWLER_PAGE_HPP
