@@ -12,12 +12,10 @@ namespace crawler {
 
 	void saveInvalidLink(const LinkEntry& link, std::unique_ptr<LinkEntryRepo>& linkEntryRepo)
 	{
-		std::cout << "Found invalid link, its corresponding URL is shown bellow\n" << link.getUrl() << std::endl
-				  << "From website with < " << link.getWebsiteId() << " > ID: " << std::endl;
+		std::cout << link.getUrl() << std::endl << link.getWebsiteId() << std::endl;
 		linkEntryRepo->save(LinkEntry(link.getId(), link.getWebsiteId(),
 				link.getUrl(), LinkStatus::INVALID, time(nullptr)));
 	}
-
 	void saveDocument(const std::string& url, const Parser& parser,
 			std::unique_ptr<DocumentRepo>& documentRepo)
 	{
@@ -30,17 +28,15 @@ namespace crawler {
 			documentRepo->save(Document(documentId++, url, parser.getTitle(),
 					parser.getDescription(), parser.getContent(), time(nullptr)));
 		}
-		std::cout << "The document was saved successfully, its corresponding URL is shown below.\n" << url << std::endl;
+		std::cout << url << std::endl;
 	}
-
 	void saveLinks(const Parser& parser, const LinkEntry& link, std::unique_ptr<LinkEntryRepo>& linkEntryRepo)
 	{
 		for (const auto& url : parser.getUrls()) {
 			if (!linkEntryRepo->getByUrl(url).has_value()) {
 				linkEntryRepo->save(
 						LinkEntry(linkId++, link.getWebsiteId(), url, LinkStatus::WAITING, time(nullptr)));
-				std::cout << "The link was saved successfully, its corresponding URL is shown below.\n"
-						  << url << std::endl;
+				std::cout << url << std::endl;
 			}
 		}
 	}
@@ -61,8 +57,7 @@ namespace crawler {
 		}
 		linkEntryRepo->save(LinkEntry(link.getId(), link.getWebsiteId(),
 				link.getUrl(), LinkStatus::LOADED, time(nullptr)));
-		std::cout << "The link was crawled successfully, its corresponding URL is shown below.\n"
-				  << link.getUrl() << std::endl;
+		std::cout << link.getUrl() << std::endl;
 
 		saveDocument(link.getUrl(), parser, documentRepo);
 		saveLinks(parser, link, linkEntryRepo);
@@ -86,15 +81,14 @@ namespace crawler {
 			constexpr int expectedLinksCount = 144;
 			auto links = linkEntryRepo->getBy(website.getId(), LinkStatus::WAITING, expectedLinksCount);
 			if (links.empty()) {
-				std::cout << "There's no more links for crawling, please update database for continue." << std::endl;
+				std::cout << std::endl;
 				break;
 			}
 			for (const auto& link : links) {
 				crawlLink(link, linkEntryRepo, documentRepo);
 			}
 		}
-		std::cout << "The website was crawled successfully, its corresponding URL is shown below.\n"
-				  << website.getHomepage() << std::endl;
+		std::cout << website.getHomepage() << std::endl;
 	}
 
 	void start(const std::string& dbName, const std::string& serverName, const std::string& username,
@@ -120,7 +114,7 @@ namespace crawler {
 			}
 		}
 		catch (const mysqlpp::ConnectionFailed& failed) {
-			std::cerr << "Please check your database validation, see parameters in config file" << std::endl;
+			std::cerr << std::endl;
 			std::cerr << failed.what() << std::endl;
 		}
 		catch (const mysqlpp::UseQueryError& failed) {
@@ -130,4 +124,4 @@ namespace crawler {
 			std::cerr << except.what() << std::endl;
 		}
 	}
-} // namespace crawler
+} 
