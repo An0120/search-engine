@@ -14,4 +14,4 @@ public:
 	virtual void save(const LinkEntry& link) = 0;
 };
 
-#endif //CRAWLER_LINKENTRYREPO_HPP
+#endif

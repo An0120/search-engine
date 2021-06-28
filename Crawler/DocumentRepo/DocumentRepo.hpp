@@ -12,4 +12,4 @@ public:
 	virtual void save(const Document& document) = 0;
 };
 
-#endif //CRAWLER_DOCUMENTREPO_HPP
+#endif 

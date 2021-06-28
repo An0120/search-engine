@@ -7,4 +7,4 @@ enum class LinkStatus {
 	INVALID = 2
 };
 
-#endif //CRAWLER__LINKSTATUS_HPP
+#endif 

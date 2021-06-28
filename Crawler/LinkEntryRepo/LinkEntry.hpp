@@ -52,4 +52,4 @@ public:
 	}
 };
 
-#endif //CRAWLER_LINKENTRY_HPP
+#endif 

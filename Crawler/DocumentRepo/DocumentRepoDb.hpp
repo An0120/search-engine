@@ -20,4 +20,4 @@ private:
 	static std::unique_ptr<Document> getDocumentFromDbRow(const mysqlpp::Row& row);
 };
 
-#endif //CRAWLER_DOCUMENTREPODB_HPP
+#endif 

@@ -22,4 +22,4 @@ private:
 	static std::unique_ptr<LinkEntry> getLinkFromDbRow(const mysqlpp::Row& row);
 };
 
-#endif //CRAWLER_LINKENTRYREPODB_HPP
+#endif 
