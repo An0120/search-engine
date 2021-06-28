@@ -4,7 +4,6 @@ project(crawler)
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(Crawler)
-add_subdirectory(ConfigParser)
 add_subdirectory(PageLoader)
 add_subdirectory(Parser)
 add_subdirectory(LinkEntryRepo)
